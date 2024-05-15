@@ -2,75 +2,75 @@ import random
 import os
 from art import logo
 
-# Função para limpar o console
+# Function to clear the console
 clear = lambda: os.system('cls')
 
-# Lista de cartas do baralho
+# List of cards in the deck
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
-# Função para iniciar um novo jogo
+# Function to start a new game
 def start_a_game():
    while True:
-      # Pergunta ao jogador se ele quer jogar um novo jogo
+      # Asks the player if they want to play a new game
       play = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
       if play == 'y':
-         blackjack()  # Inicia um novo jogo de Blackjack
+         blackjack()  # Starts a new game of Blackjack
       else:
          break
 
-# Função principal do jogo de Blackjack
+# Main function of the Blackjack game
 def blackjack():
-   clear()  # Limpa o console
+   clear()  # Clears the console
 
-   print(logo)  # Imprime o logotipo do jogo
+   print(logo)  # Prints the game logo
 
-   # Distribui cartas para o jogador e para o computador
+   # Deals cards for the player and the computer
    user_cards = random.sample(cards, 2)
    computer_cards = random.sample(cards, 2)
 
-   # Calcula a pontuação total do jogador e do computador
+   # Calculates the total score of the player and the computer
    user_total_cards = sum(user_cards)
    computer_total_cards = sum(computer_cards)
 
-   # Imprime as cartas do jogador e a primeira carta do computador
+   # Prints the player's cards and the computer's first card
    print(f"Your cards: {user_cards}, current score: {user_total_cards}")
    print(f"Computer's first card: {computer_cards[0]}")
 
-   # Loop para permitir que o jogador pegue mais cartas (se desejar)
+   # Loop to allow the player to get more cards (if desired)
    while True:
       new_card = input("Type 'y' to get another card, type 'n' to pass: ")
       if new_card == 'y':
-         # O jogador pega uma nova carta
+         # The player gets a new card
          new_card_value = random.choice(cards)
          user_cards.append(new_card_value)
          user_total_cards += new_card_value   
 
-         # Verifica se o jogador tem um Ás (11) e ultrapassou 21, trocando-o por 1
+         # Checks if the player has an Ace (11) and went over 21, changing it to 1
          if user_total_cards > 21 and 11 in user_cards:
-            user_total_cards -= 10  # Subtrai 10 para mudar o Ás de 11 para 1.
+            user_total_cards -= 10  # Subtracts 10 to change the Ace from 11 to 1
             user_cards[user_cards.index(11)] = 1
 
-         # Imprime as cartas do jogador e a primeira carta do computador novamente
+         # Prints the player's cards and the computer's first card again
          print(f"Your cards: {user_cards}, current score: {user_total_cards}")
          print(f"Computer's first card: {computer_cards[0]}")
 
-         # Se o jogador ultrapassar 21, ele perde
+         # If the player goes over 21, they lose
          if user_total_cards > 21:
             print("You went over. You lose.")
             return
       else:
          break
 
-   # O computador pega cartas até sua pontuação ser pelo menos 17
+   # The computer gets cards until its score is at least 17
    while computer_total_cards < 17:
       computer_cards.append(random.choice(cards))
       computer_total_cards += computer_cards[-1]
 
-   # Imprime as mãos finais do jogador e do computador
+   # Prints the final hands of the player and the computer
    print(f"Your final hand: {user_cards}, final score: {user_total_cards}")
    print(f"Computer's final hand: {computer_cards}, final score: {computer_total_cards}")
 
-   # Verifica quem ganhou o jogo
+   # Checks who won the game
    if user_total_cards == 21:
       print("You have a blackjack. You won!")
    elif computer_total_cards == 21:
@@ -84,5 +84,5 @@ def blackjack():
    else:
       print("It's a draw!")
 
-# Inicia o jogo
+# Starts the game
 start_a_game()
